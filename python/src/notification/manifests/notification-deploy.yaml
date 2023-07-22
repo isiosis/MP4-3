@@ -1,0 +1,37 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata: 
+  name: notification
+  labels: 
+    app: notification
+spec: 
+  replicas: 4
+  selector: 
+    matchLabels: 
+      app: notification
+  strategy: 
+    type: RollingUpdate
+    rollingUpdate: 
+      maxSurge: 8
+  template: 
+    metadata: 
+      labels: 
+        app: notification
+    spec: 
+      containers: 
+        - name: notification
+          image: quantred/notification
+          envFrom: 
+            - configMapRef: 
+                name: notification-configmap
+          env: 
+            - name: GMAIL_ADDRESS
+              valueFrom: 
+                secretKeyRef: 
+                  name: gmail-address
+                  key: GMAIL_ADDRESS
+            - name: GMAIL_PASSWORD
+              valueFrom: 
+                secretKeyRef: 
+                  name: gmail-password
+                  key: GMAIL_PASSWORD
