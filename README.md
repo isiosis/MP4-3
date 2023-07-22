@@ -25,7 +25,7 @@ kubectl create secret generic gmail-password --from-literal=GMAIL_PASSWORD=<pass
 ```
 
 
-##### The following scripts might prove to be somewhat useful when fixing issues to quickly rebuild docker images and redeploy them in minikube
+#### The following scripts might prove to be somewhat useful when fixing issues to quickly rebuild docker images and redeploy them in minikube
 
 ```
 docker build . -q | ForEach-Object { $imageID = $_.split(':')[1].Trim();
